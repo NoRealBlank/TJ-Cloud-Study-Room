@@ -21,7 +21,7 @@
 
         <!--  修改课程对话框-->
         <el-dialog
-                v-model="editMode || addMode"
+                v-model="dialogVisible"
                 style="border-radius: 20px"
                 :title="dialogTitle"
                 draggable
@@ -95,6 +95,82 @@
               </span>
             </template>
         </el-dialog>
+
+        <!--  添加课程对话框-->
+<!--        <el-dialog-->
+<!--            v-model="addMode"-->
+<!--            style="border-radius: 20px"-->
+<!--            title="添加课程"-->
+<!--            draggable-->
+<!--            :modal="false">-->
+<!--        <el-form ref="addForm" :model="editClass" :rules="classRules">-->
+<!--            <el-form-item label="课程名称" prop="title">-->
+<!--                <el-input v-model="editClass.title" style="width: 300px"/>-->
+<!--            </el-form-item>-->
+
+<!--            <el-form-item label="上课地点" prop="location">-->
+<!--                <el-input v-model="editClass.location" style="width: 300px"/>-->
+<!--            </el-form-item>-->
+
+<!--            <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                    &lt;!&ndash;                      星期几&ndash;&gt;-->
+<!--                    <el-form-item label="上课时间" prop="weekday">-->
+<!--                        <el-select placeholder="请选择" v-model="editClass.weekday" style="width: 100px">-->
+<!--                            <el-option-->
+<!--                                v-for="item in weekdaysOptions"-->
+<!--                                :key="item.value"-->
+<!--                                :label="item.label"-->
+<!--                                :value="item.value"-->
+<!--                            />-->
+<!--                        </el-select>-->
+<!--                    </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="6">-->
+<!--                    &lt;!&ndash;                      开始时间&ndash;&gt;-->
+<!--                    <el-form-item label="从" prop="start">-->
+<!--                        <el-select placeholder="请选择" v-model="editClass.start" style="width: 100px">-->
+<!--                            <el-option-->
+<!--                                v-for="item in periodOptions"-->
+<!--                                :key="item.value"-->
+<!--                                :label="item.label"-->
+<!--                                :value="item.value"-->
+<!--                                :disabled="DisabledStartTime(item.value)"-->
+<!--                            />-->
+<!--                        </el-select>-->
+<!--                    </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                    &lt;!&ndash;                      结束时间&ndash;&gt;-->
+<!--                    <el-form-item label="到" prop="end">-->
+<!--                        <el-select placeholder="请选择" v-model="editClass.end" style="width: 100px">-->
+<!--                            <el-option-->
+<!--                                v-for="item in periodOptions"-->
+<!--                                :key="item.value"-->
+<!--                                :label="item.label"-->
+<!--                                :value="item.value"-->
+<!--                                :disabled="DisabledEndTime(item.value)"-->
+<!--                            />-->
+<!--                        </el-select>-->
+<!--                    </el-form-item>-->
+<!--                </el-col>-->
+<!--            </el-row>-->
+
+<!--            <el-form-item label="颜色">-->
+<!--                <el-color-picker-->
+<!--                    v-model="editClass.color"-->
+<!--                    color-format='hex'-->
+<!--                    :predefine="predefineColors"/>-->
+<!--            </el-form-item>-->
+<!--        </el-form>-->
+
+<!--        <template #footer>-->
+<!--                      <span class="dialog-footer">-->
+<!--                          <el-button type="success" :icon="Check" circle @click="SaveAddChange"/>-->
+<!--                          <el-button :icon="Close" circle @click="QuitAddChange"/>-->
+<!--                      </span>-->
+<!--        </template>-->
+<!--        </el-dialog>-->
 
     </div>
 </template>
@@ -269,6 +345,7 @@ export default{
                 }
                 this.editIndex = -1
             }
+            this.dialogVisible = this.editMode || this.addMode
         },
         // 保存修改
         SaveEditChange(){
@@ -302,6 +379,7 @@ export default{
         QuitEditChange(){
             this.editClass = {}
             this.editMode = false
+            this.dialogVisible = false
             // 空余时间恢复
             let weekday = this.weekdays[this.classes[this.editIndex].weekday - 1]
             for(let t = this.classes[this.editIndex].start - 1; t < this.classes[this.editIndex].end; ++t)
@@ -323,6 +401,7 @@ export default{
                     this.mergeData()
                     this.editClass = {}
                     this.editMode = false
+                    this.dialogVisible = false
                 } else {
                     this.$message({
                         type: "error",
@@ -392,6 +471,7 @@ export default{
                             this.load()
                             this.editClass = {}
                             this.addMode = false
+                            this.dialogVisible = false
                         } else {
                             this.$message({
                                 type: "error",
@@ -409,6 +489,7 @@ export default{
         QuitAddChange(){
             this.editClass = {}
             this.addMode = false
+            this.dialogVisible = false
         },
         // 黑夜模式转换
         nightModeChanged(){
@@ -466,6 +547,7 @@ export default{
             editIndex: 0,
             editMode: false,
             addMode: false,
+            dialogVisible: false,
             dialogTitle: "",
             // 课程显示
             timetable: [],
@@ -588,78 +670,3 @@ export default{
 }
 </script>
 
-<!--  添加课程对话框-->
-<!--<el-dialog-->
-<!--    v-model="addMode"-->
-<!--    style="border-radius: 20px"-->
-<!--    title="添加课程"-->
-<!--    draggable-->
-<!--    :modal="false">-->
-<!--<el-form ref="addForm" :model="editClass" :rules="classRules">-->
-<!--    <el-form-item label="课程名称" prop="title">-->
-<!--        <el-input v-model="editClass.title" style="width: 300px"/>-->
-<!--    </el-form-item>-->
-
-<!--    <el-form-item label="上课地点" prop="location">-->
-<!--        <el-input v-model="editClass.location" style="width: 300px"/>-->
-<!--    </el-form-item>-->
-
-<!--    <el-row>-->
-<!--        <el-col :span="8">-->
-<!--            &lt;!&ndash;                      星期几&ndash;&gt;-->
-<!--            <el-form-item label="上课时间" prop="weekday">-->
-<!--                <el-select placeholder="请选择" v-model="editClass.weekday" style="width: 100px">-->
-<!--                    <el-option-->
-<!--                        v-for="item in weekdaysOptions"-->
-<!--                        :key="item.value"-->
-<!--                        :label="item.label"-->
-<!--                        :value="item.value"-->
-<!--                    />-->
-<!--                </el-select>-->
-<!--            </el-form-item>-->
-<!--        </el-col>-->
-<!--        <el-col :span="6">-->
-<!--            &lt;!&ndash;                      开始时间&ndash;&gt;-->
-<!--            <el-form-item label="从" prop="start">-->
-<!--                <el-select placeholder="请选择" v-model="editClass.start" style="width: 100px">-->
-<!--                    <el-option-->
-<!--                        v-for="item in periodOptions"-->
-<!--                        :key="item.value"-->
-<!--                        :label="item.label"-->
-<!--                        :value="item.value"-->
-<!--                        :disabled="DisabledStartTime(item.value)"-->
-<!--                    />-->
-<!--                </el-select>-->
-<!--            </el-form-item>-->
-<!--        </el-col>-->
-<!--        <el-col :span="8">-->
-<!--            &lt;!&ndash;                      结束时间&ndash;&gt;-->
-<!--            <el-form-item label="到" prop="end">-->
-<!--                <el-select placeholder="请选择" v-model="editClass.end" style="width: 100px">-->
-<!--                    <el-option-->
-<!--                        v-for="item in periodOptions"-->
-<!--                        :key="item.value"-->
-<!--                        :label="item.label"-->
-<!--                        :value="item.value"-->
-<!--                        :disabled="DisabledEndTime(item.value)"-->
-<!--                    />-->
-<!--                </el-select>-->
-<!--            </el-form-item>-->
-<!--        </el-col>-->
-<!--    </el-row>-->
-
-<!--    <el-form-item label="颜色">-->
-<!--        <el-color-picker-->
-<!--            v-model="editClass.color"-->
-<!--            color-format='hex'-->
-<!--            :predefine="predefineColors"/>-->
-<!--    </el-form-item>-->
-<!--</el-form>-->
-
-<!--<template #footer>-->
-<!--              <span class="dialog-footer">-->
-<!--                  <el-button type="success" :icon="Check" circle @click="SaveAddChange"/>-->
-<!--                  <el-button :icon="Close" circle @click="QuitAddChange"/>-->
-<!--              </span>-->
-<!--</template>-->
-<!--</el-dialog>-->

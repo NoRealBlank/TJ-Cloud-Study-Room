@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="be770ef1-2098-4945-addd-82d3b0646506" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/refactor/TJ-Cloud-Study-Room-Frontend/frontend/src/components/timetable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/refactor/TJ-Cloud-Study-Room-Frontend/frontend/src/components/timetable.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +29,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "E:/同济课程/软件工程/TJ云上自习室/重构仓库/TJ-Cloud-Study-Room",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "E:/同济课程/软件工程/TJ云上自习室/重构仓库/TJ-Cloud-Study-Room/refactor/TJ-Cloud-Study-Room-Frontend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -38,6 +47,9 @@
       <option name="presentableId" value="Default" />
       <updated>1691948201654</updated>
       <workItem from="1691948202667" duration="192000" />
+      <workItem from="1691948807044" duration="902000" />
+      <workItem from="1692032600724" duration="131000" />
+      <workItem from="1692112737919" duration="1376000" />
     </task>
     <servers />
   </component>
